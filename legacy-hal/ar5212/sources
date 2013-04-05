@@ -1,0 +1,58 @@
+#
+#  SOURCES file for ar5212 module
+#
+
+HAL_TOP=..
+TOP=$(HAL_TOP)\..\..\..
+INC=$(TOP)\include
+
+!IFDEF BUILD_UMAC
+INC_MP=$(TOP)\os\win_nwf\include
+!ELSE
+INC_MP=$(INC)\winvista
+!ENDIF
+
+!include $(INC_MP)\sources.inc
+
+TARGETNAME=ath_hal_ar5212
+TARGETPATH=$(TOP)\lib
+TARGETTYPE=LIBRARY
+
+INCLUDES= $(INCLUDES)            \
+    $(HAL_TOP);                  \
+    $(INC);                      \
+    $(INC_MP);                   \
+    $(SDXROOT)\net\inc;          \
+    $(DDK_INC_PATH)
+
+HAL_OSDEP_INCLUDES=$(HAL_TOP)\winvista;
+
+INCLUDES=$(HAL_OSDEP_INCLUDES) $(INCLUDES) 
+
+!IF "$(DDKBUILDENV)"=="chk"
+C_DEFINES=$(C_DEFINES) -DAH_DEBUG=1
+!ENDIF
+
+C_DEFINES=$(C_DEFINES) -DAH_SUPPORT_WRITE_EEPROM -DATH_BT_COEX
+
+SOURCES=$(SOURCES)            \
+        ar2413.c              \
+        ar5111.c              \
+        ar5112.c              \
+        ar5212_attach.c       \
+        ar5212_beacon.c       \
+	ar5212_eeprom.c       \
+        ar5212_gpio.c         \
+	ar5212_interrupts.c   \
+        ar5212_keycache.c     \
+	ar5212_misc.c         \
+        ar5212_power.c        \
+	ar5212_phy.c          \
+        ar5212_recv.c         \
+	ar5212_reset.c        \
+        ar5212_xmit.c         \
+	ar5212_ani.c          \
+        ar5212_radar.c        \
+	ar5413.c              \
+	ar2425.c
+

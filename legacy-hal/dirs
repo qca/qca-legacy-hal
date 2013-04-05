@@ -1,0 +1,6 @@
+
+DIRS=            \
+        winvista \
+        ar5212   \
+        ar5416
+
